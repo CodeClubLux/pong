@@ -4,8 +4,8 @@ from random import randint
 class ball(pygame.sprite.Sprite):
 	def __init__(self, w, h):
 		super().__init__()
-		self.width=20
-		self.height=20
+		self.width=60
+		self.height=60
 		self.x=randint(0, w-self.width)
 		self.y=randint(0, h-self.height)
 		self.vx=3
@@ -46,8 +46,8 @@ class racket(pygame.sprite.Sprite):
 		pygame.mouse.set_visible(0)
 		self.x=x
 		self.y=y
-		self.width=30
-		self.height=60
+		self.width=60
+		self.height=120
 		self.image = pygame.Surface([self.width, self.height])
 		self.image.fill(color)
 		self.rect = self.image.get_rect()
@@ -73,7 +73,9 @@ class racket(pygame.sprite.Sprite):
 		
 
 class target(pygame.sprite.Sprite):
-	def __init__(self, x, y):
+	def __init__(self, x, y, color):
+		super().__init__()
+		
 		self.x=x
 		self.y=y
 		self.width=30
@@ -93,6 +95,7 @@ if __name__=="__main__":
 	clock = pygame.time.Clock()
 	ball = ball(800,600)
 	racket = racket(400,300,(50,150,255))
+	#target = target(400,300, ())
 	all_sprites = pygame.sprite.Group()
 	all_sprites.add(ball)
 	all_sprites.add(racket)
@@ -106,8 +109,8 @@ if __name__=="__main__":
 		window.fill(black)
 		all_sprites.update()
 
-	if pygame.sprite.collide_rect(ball, racket):
-		ball.bounce()
+		if pygame.sprite.collide_rect(ball, racket):
+		    ball.bounce()
 
 		all_sprites.draw(window)
 		clock.tick(30)
