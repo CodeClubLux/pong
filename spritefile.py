@@ -20,6 +20,7 @@ class ball(pygame.sprite.Sprite):
 		self.move_down = True
 		self.rect.x = self.x
 		self.rect.y = self.y
+
 	def update(self):
 		self.y += self.vy
 		self.x += self.vx
@@ -34,7 +35,10 @@ class ball(pygame.sprite.Sprite):
 		print (self.x,self.y,self.vx,self.vy) 
 		self.rect.x = self.x
 		self.rect.y = self.y
-		
+
+	def bounce(self):
+		self.vx = - self.vx
+		self.vy = - self.vy
 
 class racket(pygame.sprite.Sprite):
 	def __init__(self, x, y, color):
@@ -101,6 +105,10 @@ if __name__=="__main__":
 				exit()
 		window.fill(black)
 		all_sprites.update()
+
+	if pygame.sprite.collide_rect(ball, racket):
+		ball.bounce()
+
 		all_sprites.draw(window)
 		clock.tick(30)
 		pygame.display.flip()
