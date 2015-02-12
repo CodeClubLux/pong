@@ -32,7 +32,7 @@ class ball(pygame.sprite.Sprite):
 			self.vx=-self.vx
 		if self.y<=0:
 			self.vy=-self.vy
-		print (self.x,self.y,self.vx,self.vy) 
+		#print (self.x,self.y,self.vx,self.vy) 
 		self.rect.x = self.x
 		self.rect.y = self.y
 
@@ -80,15 +80,16 @@ class target(pygame.sprite.Sprite):
 		self.y=y
 		self.width=30
 		self.height=30
-		self.x=randint(0, x-self.x)
-		self.y=randint(0, y-self.y)
+		self.x=randint(0, x-self.width)
+		self.y=randint(0, y-self.height)
 		self.image = pygame.Surface([self.width, self.height])
 		self.image.fill(color)
 		self.rect = self.image.get_rect()
 		self.rect.x = self.x
 		self.rect.y = self.y
-		
-
+		print(self.x)
+		print(self.y)
+	#def create(self, x, y, color= (255, 0, 0)
 
 if __name__=="__main__":
 	import pygame
@@ -116,6 +117,9 @@ if __name__=="__main__":
 
 		if pygame.sprite.collide_rect(ball, racket):
 		    ball.bounce()
+		if pygame.sprite.collide_rect(ball, target):
+		    all_sprites.remove(target)
+		    print("I have been hit!")
 
 		all_sprites.draw(window)
 		clock.tick(30)
