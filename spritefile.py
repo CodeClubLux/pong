@@ -73,16 +73,21 @@ class racket(pygame.sprite.Sprite):
 		
 
 class target(pygame.sprite.Sprite):
-	def __init__(self, x, y, color):
+	def __init__(self, x, y, color=(255,0,0)):
 		super().__init__()
 		
 		self.x=x
 		self.y=y
 		self.width=30
 		self.height=30
+		self.x=randint(0, x-self.x)
+		self.y=randint(0, y-self.y)
 		self.image = pygame.Surface([self.width, self.height])
 		self.image.fill(color)
 		self.rect = self.image.get_rect()
+		self.rect.x = self.x
+		self.rect.y = self.y
+		
 
 
 if __name__=="__main__":
@@ -95,11 +100,11 @@ if __name__=="__main__":
 	clock = pygame.time.Clock()
 	ball = ball(800,600)
 	racket = racket(400,300,(50,150,255))
-	#target = target(400,300, ())
+	target = target(400,300)
 	all_sprites = pygame.sprite.Group()
 	all_sprites.add(ball)
 	all_sprites.add(racket)
-
+	all_sprites.add(target)
 	background = pygame.Surface(window.get_size())
 	
 	while True:
